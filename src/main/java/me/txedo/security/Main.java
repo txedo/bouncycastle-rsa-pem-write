@@ -1,3 +1,4 @@
+package me.txedo.security;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.Key;
@@ -8,8 +9,6 @@ import java.security.NoSuchProviderException;
 import java.security.Security;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-
-import me.txedo.security.PemFile;
 
 import org.apache.log4j.Logger;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -25,17 +24,22 @@ public class Main {
 		Security.addProvider(new BouncyCastleProvider());
 		LOGGER.info("BouncyCastle provider added.");
 		
+		KeyPair keyPair = generateRSAKeyPair();
+		RSAPrivateKey priv = (RSAPrivateKey) keyPair.getPrivate();
+		RSAPublicKey pub = (RSAPublicKey) keyPair.getPublic();
+		
+		writePemFile(priv, "RSA PRIVATE KEY", "id_rsa");
+		writePemFile(pub, "RSA PUBLIC KEY", "id_rsa.pub");
+		
+	}
+
+	private static KeyPair generateRSAKeyPair() throws NoSuchAlgorithmException, NoSuchProviderException {
 		KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA", "BC");
 		generator.initialize(KEY_SIZE);
 		
 		KeyPair keyPair = generator.generateKeyPair();
 		LOGGER.info("RSA key pair generated.");
-		
-		RSAPrivateKey priv = (RSAPrivateKey) keyPair.getPrivate();
-		RSAPublicKey pub = (RSAPublicKey) keyPair.getPublic();
-		writePemFile(priv, "RSA PRIVATE KEY", "id_rsa");
-		writePemFile(pub, "RSA PUBLIC KEY", "id_rsa.pub");
-		
+		return keyPair;
 	}
 
 	private static void writePemFile(Key key, String description, String filename)
