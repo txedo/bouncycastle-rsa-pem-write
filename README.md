@@ -8,6 +8,8 @@ This project is a small tutorial to show how to **generate RSA keys** with **Bou
 3. Select `File` > `Import...` > `Existing Maven Projects`, and follow the steps.
 
 #### Full tutorial and explanation
-To read the full tutorial and explanation, please visit it at [txedo.me][1].
+To read the full tutorial and explanation, please visit [Generate RSA keys and write to a PEM file in Java][1] at [txedo.me][2].
 
-  [1]: http://www.txedo.me/blog/java-generate-rsa-keys-write-pem-file
+  [1]: http://www.txedo.me/blog/java-generate-rsa-keys-write-pem-file/
+  [2]: http://www.txedo.me
+  
